@@ -49,7 +49,7 @@
     "spark-md5": ""
   },
   "scripts": {
-    "postinstall": "bower cache clean && bower install"
+    "postinstall": "bower cache clean && bower install",
     "update-deps": "npm update",
     "postupdate-deps": "bower update",
     "start": "node server.js",
