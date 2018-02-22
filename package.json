@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Blockchain Certifier Demo",
   "engines": {
-    "node": "8.6.4"
+    "node": "8.6.0"
   },
   "Dependencies": {
     "bower": "^1.8.2",
