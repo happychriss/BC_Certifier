@@ -329,7 +329,7 @@ angular.module("BlockChainDemo").component("walletComponent", {
 });
 
 
-////// Controllers and function  *********************************************************************
+////// Controllers and function  ********xxx*************************************************************
 
 function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md5service, my_api_bc_ignore) {
     var my_scope = scope;
