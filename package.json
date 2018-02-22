@@ -1,9 +1,9 @@
 {
-  "name": "BCC_WebServer",
+  "name": "BC_Certifier",
   "private": true,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "devDependencies": {
+  "description": "Blockchain Certifier Demo",
+  "Dependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
@@ -15,22 +15,6 @@
     "protractor": "^4.0.9",
     "server-js": "^0.1.4",
     "redis": "^2.8.0",
-    "request-promise": "^4.2.2",
-    "express-handlebars": "^3.0.0",
-    "body-parser": "^1.18.2",
-    "web3-eth-accounts": "^1.0.0-beta.26",
-    "web3": "https://github.com/ethereum/ethereum.js.git",
-    "eth-lightwallet": "https://github.com/ConsenSys/eth-lightwallet.git",
-    "hooked-web3-provider": "https://github.com/ConsenSys/hooked-web3-provider.git",
-    "spark-md5": ""
-  },
-  "dependencies": {
-    "redis": "^2.8.0",
-    "bower": "^1.7.7",
-    "http-server": "^0.9.0",
-    "jasmine-core": "^2.4.1",
-    "express": "^4.16.2",
-    "server-js": "^0.1.4",
     "request-promise": "^4.2.2",
     "express-handlebars": "^3.0.0",
     "body-parser": "^1.18.2",
