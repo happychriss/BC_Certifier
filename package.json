@@ -6,8 +6,8 @@
   "engines": {
     "node": "8.6.0"
   },
-  "Dependencies": {
-    "bower": "^1.7.7",
+  "dependencies": {
+    "bower": "latest",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
@@ -28,7 +28,7 @@
     "spark-md5": ""
   },
   "devDependencies": {
-    "bower": "^1.7.7",
+    "bower": "latest",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
