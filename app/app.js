@@ -387,7 +387,7 @@ function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md
                     break;
 
                 case STEP_2_POLL_MONEY:
-                    my_scope.status_text = "Part-2/4: We need to wait up to 45 seconds until the transaction is confirmed (mined).";
+                    my_scope.status_text = "Part-2/4: We put some Ether to your public address, to pay for the Blockchain transaction (this is a special service of this page). Now we need to wait up to 45 seconds until the transaction is confirmed (mined).";
 
                     var tresult = blockchainService.checkTransaction(poll_transaction);
 
@@ -413,7 +413,7 @@ function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md
 
                 case STEP_3_POLL_CONTRACT:
 
-                    my_scope.status_text = "Part -3/4: Certificate Hash was sent to the Smart Contract. We need to wait up to 45 seconds until the transaction is confirmed.";
+                    my_scope.status_text = "Part -3/4: Now the Certificate Hash was sent to the Smart Contract. We need to wait up to 45 seconds until the transaction is confirmed.";
 
                     tresult = blockchainService.checkTransaction(poll_transaction);
 
