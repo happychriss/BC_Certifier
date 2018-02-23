@@ -13,25 +13,15 @@ var redis = require("redis"), client = redis.createClient(process.env.REDIS_URL)
 
 
 app.use(bodyParser.json());       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-    extended: true
-}));
-
+app.use(bodyParser.urlencoded({ extended: true})); // to support URL-encoded bodies
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
 app.use(express.static('app'));
 app.use(express.json());
 
-
-
-app.get('/config.js', function(req, res){
-    res.send("var BC_FUELSERVER_URL="+process.env.BC_FUELSERVER_URL+"");
-
-});
 
 
 ////******************************************************************
@@ -85,6 +75,14 @@ app.get('/api/get_status', function(request, response){
     })
 });
 
+
+
+app.get('/*', function(req, res){
+    res.sendFile(__dirname + '/app/index.html');
+    console.log("Got Request for index.html");
+});
+
+//// Post Requests for the Server
 
 app.post('/api/blockchain2', function (req, res) {
     var store_asset_tx = new Tx(req.body.tx);
@@ -226,10 +224,6 @@ app.post('/api/blockchain', function (req, res) {
 
 });
 
-
-app.get('/*', function(req, res){
-    res.sendFile(__dirname + '/app/index.html');
-});
 
 
 app.listen(port, function() {
