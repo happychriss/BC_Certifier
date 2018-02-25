@@ -42,7 +42,7 @@
         <div class="col-sm-6">
             <h4>Your information</h4>
             <p>Hash of your File: <strong>{{asset.filehash}}</strong></p>
-            <p>Smart Contract checked for this Hash: <strong>{{asset.address}}</strong></p>
+            <p>Smart Contract checked for this Hash: <strong><a href="{{$root.ETHERSCAN}}address/{{asset.address}}#code">{{asset.address}}</a></strong></p>
             <h4>Result</h4>
 
             <div ng-if="asset.asset_found">
