@@ -42,7 +42,7 @@
                 </div>
 
                 <p><strong>Note:</strong></p>
-                <p>It can take over 60 seconds to upload the data on the Blockchain to this Smart-Contract: &nbsp;<strong><a href="{{$root.ETHERSCAN}}address/{{upload_asset.address}}">0x{{upload_asset.address}}</a></strong></p>
+                <p>It can take over 60 seconds to upload the data on the Blockchain to this Smart-Contract: &nbsp;<strong><a target="_blank" href="{{$root.ETHERSCAN}}address/{{upload_asset.address}}">0x{{upload_asset.address}}</a></strong></p>
 
 
             </form>
@@ -56,7 +56,7 @@
                     <p>Only this Hash will be uploaded, your file will <strong>NEVER</strong> leave your PC. (IT people can check the javascript of this page).</p>
                     <h3>Upload to the Blockchain</h3>
                     <p>When pressing the Button, your Public Address, the Hash and all other information is uploaded to the Blockchain. </p>
-                    <p>Your data is actually sent to a <a href="{{$root.ETHERSCAN}}address/{{upload_asset.address}}#code">Smart Contract</a> .The Smart Contracts runs all the logic to validate your Public Address and to check the Hash.</p>
+                    <p>Your data is actually sent to a <a target="_blank" href="{{$root.ETHERSCAN}}address/{{upload_asset.address}}#code">Smart Contract</a> .The Smart Contracts runs all the logic to validate your Public Address and to check the Hash.</p>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
                     <div class="panel-body">
                         <h3>It's now on the Blockchain.</h3>
                         <p><strong>Your data is stored in a "Smart Contract". You can check the transaction in the Etherscan - Blockchain explorer:</strong></p>
-                        <p><a href="{{$root.ETHERSCAN}}tx/{{poll_transaction}}">{{poll_transaction}}</a></p>
+                        <p><a target="_blank" href="{{$root.ETHERSCAN}}tx/{{poll_transaction}}">{{poll_transaction}}</a></p>
                         <p>Everybody can READ from this smart contract and has access to the Hashes that are stored there.</p>
                         <p>Because only you (the Certificate Owner) can write data to the Blockchain with your Public Address - the Hash of the documents must have been uploaded by him.</p>
                         <h3>Do it again</h3>

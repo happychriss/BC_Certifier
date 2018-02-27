@@ -17,7 +17,7 @@ This Application allows to prove that digital assets have been issued by a certi
 A University (or any other institution) is sending graduation certificates as PDF documents to their students. At the same time the University uploads the HASH of this document to the Blockhain.
 
 A HASH is a long number that can be calculated from any file (pdf, jpg, mp3). When the file is changed at any place (even just a single bit) that Hash will change. The Hash number is so big, that each different file in the universe will have a different Hash.
-### Hiring Company - Certificate Validator
+#   ## Hiring Company - Certificate Validator
 
 A hiring company is receiving a PDF certificate from a job candidate. The company can now calculate the HASH of this PDF and check it against the Hash in the Blockchain. If Hashes are identical the company can be sure that the certificate was issued by the University and was not altered or manipulated.
 
