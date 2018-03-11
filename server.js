@@ -1,4 +1,19 @@
-/// WebServer Init ******************************************************************************************
+// Config
+
+// ********* Truffle
+// var wallet_address = '627306090abaB3A6e1400e9345bC60c78a8BEf57'; //local wallet with truffle
+// var contract_address = '345ca3e014aaf5dca488057592ee47305d9b3e10';  //address of the new contract (CopyRight) truffle
+// Wallet Private Key c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
+// Web3-Provider: http://localhost:9545
+
+// ********** Rinkeby (Ethereum Testnet)
+// wallet_address ='8B29A9EB2347d52D89F0678dDE0eD033feBdF4A7'; //rinkbey
+// Contract: 0xf93E8cfb32d8ce4B28feAF26d8A857a74c83cd8E
+// Web3-Provider/Infura: https://rinkeby.infura.io/NPDWCn9k71RH5knG9aPt
+// Wallet Private Key: local (hehehe)
+
+
+/// WebServer Init *    *****************************************************************************************
 const express = require('express');
 const app = express();
 const port = process.env.PORT;
@@ -6,6 +21,7 @@ const STATUS_GET = "GOT REQUEST";
 const STATUS_MONEY = "SENT MONEY";
 const STATUS_CONTRACT = "SENT CONTRACT UPDATE";
 const STATUS_ERROR = "ERROR";
+
 
 
 var bodyParser = require('body-parser');
@@ -25,8 +41,13 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 
+
+// make the constants available to the html web page
 app.get('/config.js', function(req, res){
-    res.send("var BC_FUELSERVER_URL="+process.env.BC_FUELSERVER_URL+"");
+    res.send("var BC_FUELSERVER_URL='"+process.env.BC_FUELSERVER_URL+"';"+
+             "var SMART_CONTRACT='"+process.env.SMART_CONTRACT+"';"+
+             "var HTTP_PROVIDER='"+process.env.HTTP_PROVIDER+"'"
+    );
 
 });
 
@@ -47,20 +68,16 @@ var Accounts = require('web3-eth-accounts');
 // Wallet Address
 
 
-// var wallet_address = '0x627306090abaB3A6e1400e9345bC60c78a8BEf57'; local wallet with truffle
-var wallet_address ='0x8B29A9EB2347d52D89F0678dDE0eD033feBdF4A7'; //rinkbey
+
+var wallet_address ='0x'+process.env.WALLET_ADDRESS;
 var wallet_key = process.env.WALLET_KEY;
+var contract_address = process.env.SMART_CONTRACT;
 
-
-// Hash Main Contract Details ************************
-// var contract_address = '0xB943F922bD561A269283D73Ba3d5F5069dD6c9bd';  //address of the old contract
-// var contract_address = '0x345ca3e014aaf5dca488057592ee47305d9b3e10';  //address of the new contract (CopyRight) truffle
-var contract_address = '0x2993adA82373AA0b3A95780E35D21718160Cc974';  //address of the new contract (CopyRight) rinkeby
 
 
 // Fuel Server Functions ******************************************************************************************
 var web3 = new Web3(
-    new Web3.providers.HttpProvider('https://rinkeby.infura.io/NPDWCn9k71RH5knG9aPt')
+  new Web3.providers.HttpProvider(process.env.HTTP_PROVIDER)
 // new Web3.providers.HttpProvider('http://localhost:9545')
 );
 

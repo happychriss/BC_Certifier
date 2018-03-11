@@ -1,309 +1,305 @@
 'use strict';
 
-angular.module("BlockChainDemo",
-    ["ui.bootstrap", "ngCookies", "ljungmann.fileMd5", "ngFileUpload"])
-    .constant("HOST", "https://rinkeby.infura.io/NPDWCn9k71RH5knG9aPt")
-    .constant("HC_ADDRESS", "2993adA82373AA0b3A95780E35D21718160Cc974")
-    .constant("ABI",
+// angular.module("BlockChainDemo", ["ui.bootstrap", "ngCookies", "ljungmann.fileMd5", "ngFileUpload"]).constant("HOST", "https://rinkeby.infura.io/NPDWCn9k71RH5knG9aPt").constant("HC_ADDRESS", "2993adA82373AA0b3A95780E35D21718160Cc974").constant("ABI",
+angular.module("BlockChainDemo", ["ui.bootstrap", "ngCookies", "ljungmann.fileMd5", "ngFileUpload"]).constant("HOST", HTTP_PROVIDER).constant("HC_ADDRESS", SMART_CONTRACT).constant("ABI",
 
-// angular.module("BlockChainDemo").constant("HOST", "http://localhost:9545").constant("HC_ADDRESS", "345ca3e014aaf5dca488057592ee47305d9b3e10").constant("ABI",
-        [
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "",
-                        "type": "address"
-                    }
-                ],
-                "name": "owners",
-                "outputs": [
-                    {
-                        "name": "name",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "createDate",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "is_created",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_owner",
-                        "type": "address"
-                    }
-                ],
-                "name": "setOwner",
-                "outputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [],
-                "name": "destroy",
-                "outputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "getOwner",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "index",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "getHashesbyOwner",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "address"
-                    },
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "owner",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "address"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "_checksum",
-                        "type": "bytes32"
-                    }
-                ],
-                "name": "getAssetbyHash",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "address"
-                    },
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "",
-                        "type": "bytes32"
-                    }
-                ],
-                "name": "assets",
-                "outputs": [
-                    {
-                        "name": "owner",
-                        "type": "address"
-                    },
-                    {
-                        "name": "checksum",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "description",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "createDate",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_checksum",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "_ownerName",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "_description",
-                        "type": "bytes32"
-                    },
-                    {
-                        "name": "_createDate",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "createAsset",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "fallback"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "owner",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": true,
-                        "name": "_checksum",
-                        "type": "bytes32"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "_createDate",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "AssetCreated",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "sender",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "errorCode",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "Error",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "owner",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "owner_name",
-                        "type": "bytes32"
-                    }
-                ],
-                "name": "OwnerCreated",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": false,
-                        "name": "message",
-                        "type": "string"
-                    }
-                ],
-                "name": "Log",
-                "type": "event"
-            }
-        ]
+    [
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "owners",
+            "outputs": [
+                {
+                    "name": "name",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "createDate",
+                    "type": "uint256"
+                },
+                {
+                    "name": "is_created",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getOwner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "index",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getHashesbyOwner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "_checksum",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "getAssetbyHash",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                },
+                {
+                    "name": "",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "assets",
+            "outputs": [
+                {
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "name": "checksum",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "createDate",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "_checksum",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "name": "_createDate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AssetCreated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "errorCode",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Error",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "name": "message",
+                    "type": "string"
+                }
+            ],
+            "name": "Log",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "name": "owner_name",
+                    "type": "bytes32"
+                }
+            ],
+            "name": "OwnerCreated",
+            "type": "event"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_checksum",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "_ownerName",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "_description",
+                    "type": "string"
+                },
+                {
+                    "name": "_createDate",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createAsset",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "destroy",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_owner",
+                    "type": "address"
+                }
+            ],
+            "name": "setOwner",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "fallback"
+        }
+    ]
     ).run(["$http", "$uibModal","$rootScope", function (my_http, t, $rootScope) {
         $rootScope.ETHERSCAN="https://rinkeby.etherscan.io/";
 
@@ -573,7 +569,7 @@ function assetsVerifyController(scope, win, console, bc_service, md5_service) {
                     my_scope.asset.message = verify_result.message;
                     my_scope.asset.ownername = verify_result.owner_name;
                     my_scope.asset.owner = verify_result.owner;
-                    my_scope.asset.uploaded = verify_result.date;
+                    my_scope.asset.uploaded = verify_result.asset_date;
                     my_scope.asset.filehash = checksum;
                     my_scope.asset.address = contract_address;
                     my_scope.accountAddress = bc_service.address;
@@ -593,6 +589,39 @@ function assetsVerifyController(scope, win, console, bc_service, md5_service) {
                 }
             })
         })
+    }
+
+    my_scope.checkCat = function () {
+
+        var contract_address = my_scope.asset.address; //smart contract address
+        var checksum='1b60e5d14e4827cf8275b451d05751e0';
+        bc_service.verifyOwner(checksum, function (res, verify_result) {
+            if (res == null && verify_result.asset_found) {
+                console.log("Found asset with hash:" + checksum);
+                my_scope.asset.message = verify_result.message;
+                my_scope.asset.ownername = verify_result.owner_name;
+                my_scope.asset.owner = verify_result.owner;
+                my_scope.asset.uploaded = verify_result.date;
+                my_scope.asset.filehash = checksum;
+                my_scope.asset.address = contract_address;
+                my_scope.accountAddress = bc_service.address;
+                my_scope.asset.asset_found = true;
+                my_scope.$apply();
+            }
+            else {
+                console.log("Failed to verity hash: " + res);
+                my_scope.asset.filehash = checksum;
+                my_scope.asset.message = '';
+                my_scope.asset.onwername = '';
+                my_scope.asset.uploaded = '';
+                my_scope.asset.address = contract_address;
+                my_scope.accountAddress = bc_service.address;
+                my_scope.asset.asset_found = false;
+                my_scope.$apply();
+            }
+        })
+
+
     }
 }
 

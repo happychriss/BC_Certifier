@@ -68,12 +68,12 @@ function BlockChainService(my_ABI, address, host) {
         },
 
         this.restoreWallet = function (res) {
-            var pwd = prompt("Enter Password to encrypt your seed", "Password");
+            var pwd = prompt("Enter the Password that was used to encrypt your Wallet", "Password");
             pwd && lightwallet.keystore.deriveKeyFromPassword(pwd, function (err, pwDerivedKey) {
                 if (err)
                     res(err, null);
                 else {
-                    var my_seed = prompt("Enter Seed to re  store your wallet", "Seed");
+                    var my_seed = prompt("Enter Seed/Secret Words to finally restore your wallet", "Seed");
                     if (!my_seed)
                         return;
                     bs_service.initWallet(pwd, my_seed, pwDerivedKey, res)
@@ -162,14 +162,14 @@ function BlockChainService(my_ABI, address, host) {
                             bs_service.assetList.owner_name = null;
                         }
 
-                        bs_service.assetList.owner_create_date = Date(result[2].toNumber(0));
+                        bs_service.assetList.owner_create_date = new Date(result[2].toNumber(0)*1000);
 
                     }
 
                     bs_service.assetList.hashes.push({
                             checksum: bs_service.web3.toAscii(result[3]),
-                            description: bs_service.web3.toAscii(result[4]),
-                            create_date: Date(result[5].toNumber(0))
+                            description: result[4],
+                            create_date: new Date(result[5].toNumber(0))
 
                         }
                     );
@@ -250,21 +250,13 @@ function BlockChainService(my_ABI, address, host) {
                     res(err, null);
                 else {
                     var resultVerfiy = {
-                        asset_found: (check_zero(0, function (res) {
-                            return res
-                        }) !== '0x0000000000000000000000000000000000000000'),
-                        owner: check_zero(0, function (res) {
-                            return res
-                        }),
+                        asset_found: (check_zero(0, function (res) { return res }) !== '0x0000000000000000000000000000000000000000'),
+                        owner: check_zero(0, function (res) {return res }),
                         owner_name: check_zero(1, convert_to_asci),
-
-                        date: check_zero(2, function (res) {
-                            return new Date(res.toNumber(0));
-                        }),
+                        date: check_zero(2, function (res) {return new Date(res.toNumber(0)*1000); }),
                         hash: check_zero(3, convert_to_asci),
-                        message: check_zero(4, convert_to_asci),
-                        asset_date: check_zero(5, function (res) {
-                            return new Date(res.toNumber(0));
+                        message: check_zero(4,  function (res) {return res }),
+                        asset_date: check_zero(5, function (res) {return new Date(res.toNumber(0));
                         })
                     };
                     res(null, resultVerfiy);

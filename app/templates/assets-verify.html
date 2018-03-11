@@ -3,19 +3,33 @@
         <div class="col-sm-6">
             <form name="verifyForm" novalidate>
                 <div class="form-group">
-                    <label>Select the file to validate: </label>
+
+                    <h4>Find your file, a cat or other files on the Blockchain </h4>
+                    <p>The file itself will *never* be uploaded to the Blockchain.</p>
                     <input type="file" class="form-control" ngf-select ng-model="picFile" name="file" ngf-max-size="2MB"
                            required ngf-model-invalid="errorFile">
                     <img ng-show="verifyForm.file.$valid && picFile.type=='image/jpeg'" ngf-thumbnail="picFile"
                          class="thumb">
                     <a ng-click="picFile = null" ng-show="picFile">Remove File</a>
-                </div>
 
+                    <p></p>
 
-                <div class="form-group">
                     <button ng-disabled="!verifyForm.$valid" ng-click="verify(picFile)" class="btn btn-default">
                         Check
                     </button>
+
+                </div>
+
+                <div ng-if="asset.filehash == ''">
+
+
+                <div class="form-group">
+                    <h4>Check the Cat :-)</h4>
+
+                    <img class="img-responsive" width="318" height="314" sizes="(max-width: 1920px) 100vw, 1920px" src="/cat.jpg">
+                    <button type="button" class="btn btn-default" ng-click="checkCat()">Find Cat</button>
+
+                </div>
                 </div>
             </form>
         </div>
@@ -24,12 +38,11 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>Validate the Authenticity of a file!</h3>
-                    <p><strong>To validate that a file (a certificate) to be unchanged and correct, you will <strong>not</strong> need a Wallet or Blockchain address. You are only reading from the Blockchain.</strong></p>
+                    <p><strong>To validate that a file (a certificate) to be unchanged and correct, you will not need a Wallet or Blockchain address. </strong>You are only reading from the Blockchain.</p>
                     <p>As a validator (e.g. employee) you get the certificate as PDF to check if it was issued by the Certifier.</p>
                     <p>When pressing "CHECK" the Hash of the file will be calculated. The Javascript on this page will than read the Smart Contract to find a matching Hash.</p>
-                    <p>When the Hash is found, all data will be returned - including the Owner Name and Public-Address of the Certifier.</p>
                     <p>As a final step you need to double-check that the Public-Address belongs to the Certifier, e.g. by checking the Certifier WebPage.</p>
-                    <p>Again - the file itself will *never* be uploaded to the Blockchain.</p>
+
 
                 </div>
             </div>

@@ -85,7 +85,7 @@
             <div id="result">
                 <p>Public Address::</p>
                 <p><strong><a target="_blank" href="{{$root.ETHERSCAN}}address/{{accountAddress}}">0x{{accountAddress}}</strong></a>
-                <p>If you ever need to restore your wallet, keep this *secret* words to re-generate your wallet:</p>
+                <p>If you ever need to restore your wallet, keep these *secret* words (also called here "seeds") to re-generate your wallet:</p>
                 <p><strong>{{seed}}</strong></p>
                 <div class="form-group">
                     <button class="btn btn-default" ng-click="printResult('result')" ng-disabled="!accountAddress">Print
@@ -100,9 +100,9 @@
                     <p>Created on: {{upload_asset.upload_date}} </p>
                     <p>Hashes:</p>
 
-                    <table>
+                    <table style="table-layout:fixed; word-wrap: break-word; width: 100%;">
                         <tr ng-repeat="hash in hashes">
-                            <td>{{ hash.description}}</td>
+                            <td style="width: 70%;">{{ hash.description}}</td>
                             <td>{{ hash.create_date }}</td>
                         </tr>
                     </table>
