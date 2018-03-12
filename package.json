@@ -27,7 +27,7 @@
     "postinstall": "bower install",
     "update-deps": "npm update",
     "postupdate-deps": "bower update",
-    "start": "node $NODE_DEBUG_OPTION server.js",
+    "start": "node server.js",
     "pretest": "npm install",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
