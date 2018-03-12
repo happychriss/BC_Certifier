@@ -300,10 +300,10 @@ angular.module("BlockChainDemo", ["ui.bootstrap", "ngCookies", "ljungmann.fileMd
             "type": "fallback"
         }
     ]
-    ).run(["$http", "$uibModal","$rootScope", function (my_http, t, $rootScope) {
-        $rootScope.ETHERSCAN="https://rinkeby.etherscan.io/";
+).run(["$http", "$uibModal", "$rootScope", function (my_http, t, $rootScope) {
+    $rootScope.ETHERSCAN = "https://rinkeby.etherscan.io/";
 
-    }]);
+}]);
 
 ////// Components *********************************************************************
 // angular.module("BlockChainDemo").component("assetsUploadInfo", {controller: function() {},               templateUrl: "templates/assets-upload-info.html"});
@@ -334,7 +334,7 @@ function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md
         name: "",
         message: "",
         address: blockchainService.assetVerifier.address
-    } ;
+    };
 
 
     const STEP_1_SENT_MONEY = 1;
@@ -420,16 +420,19 @@ function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md
                         my_log.log("Polling Done");
 
                         tresult.logs.forEach(function (log) {
-                        //The hash of the signature of the event is one of the topics, in this case for event Error(address indexed sender, uint errorCode);
-                          if (log.topics[0]==="0x9cf38cf2dbf9139f5c32639950507b10775fbbe0421f3e168bc2d1bb1ae3208c") {
+                            //The hash of the signature of the event is one of the topics, in this case for event Error(address indexed sender, uint errorCode);
+                            if (log.topics[0] === "0x9cf38cf2dbf9139f5c32639950507b10775fbbe0421f3e168bc2d1bb1ae3208c") {
 
-                              switch (blockchainService.web3.toDecimal(log.data)){
-                                  case 1001: my_scope.status_text="Sorry, Hash was already uploaded";break;
-                                  default: my_scope.status_text="UNKOWN ERROR-Code:"+blockchainService.web3.toDecimal(log.data);
+                                switch (blockchainService.web3.toDecimal(log.data)) {
+                                    case 1001:
+                                        my_scope.status_text = "Sorry, Hash was already uploaded";
+                                        break;
+                                    default:
+                                        my_scope.status_text = "UNKOWN ERROR-Code:" + blockchainService.web3.toDecimal(log.data);
+                                }
+
+                                status = ERROR;
                             }
-
-                           status = ERROR;
-                          }
                         });
 
 
@@ -443,12 +446,12 @@ function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md
                     my_scope.status_text = "Step-4/4: DONE - Your Hash is in on the Blockchain. Never to be deleted.";
                     my_log.log("MISSION Completed");
                     my_scope.status_completed = true;
-                    my_scope.poll_transaction=poll_transaction;
+                    my_scope.poll_transaction = poll_transaction;
 
 
                     blockchainService.showOwnerDetails(blockchainService.address, function (err, asset) {
-                       my_scope.hashes = asset.hashes;
-                    cancelNextLoad();
+                        my_scope.hashes = asset.hashes;
+                        cancelNextLoad();
                     })
 
                     break;
@@ -479,58 +482,58 @@ function assetsUpload(scope, $timeout, my_http, o, my_log, blockchainService, md
 
 
     my_scope.$watch(function () {
-            return blockchainService.getOwnerName();         },
+            return blockchainService.getOwnerName();
+        },
         function (value) {
-            my_scope.ownername= value;
+            my_scope.ownername = value;
         }),
 
-    //***********************************************************************
-    /// Upload flow starts from here UploadPic->SendHash->BuilRegisterAsset
+        //***********************************************************************
+        /// Upload flow starts from here UploadPic->SendHash->BuilRegisterAsset
 
-    my_scope.uploadPic = function (e) {
-        md5service.md5(e).progress(function (uploaded_file) {
-            my_log.log("Hashed " + uploaded_file.loaded + " B out of " + uploaded_file.total + " B")
-        }).error(function (e) {
-            my_log.log("Error calculating md5: %o", e)
-        }).success(function (s) {
-            my_log.log("MD5 for " + e.name + " is " + s),
-                my_scope.sendHash(s)
-        })
-    },
-
-
-    //*********** Prepare the transaction, build the contract -to be sent to FuelServer for execution **************
-    my_scope.sendHash = function (my_hash) {
-        my_scope.asset = {
-            filehash: my_hash,
-            owner: blockchainService.address,
-            name: my_scope.upload_asset.name,
-            date: new Date,
-            message: my_scope.upload_asset.message
-        },
-            blockchainService.buildRegisterAssetTx("0x" + my_scope.asset.owner.toLowerCase(), my_scope.asset.name, my_scope.asset.filehash, my_scope.asset.date.getTime(), my_scope.asset.message, function (e, raw_transaction) {
-                if (e)
-                    my_log.log("Failed to send transaction: " + e);
-                else {
-                    var t = {
-                        tx: raw_transaction,
-                        token: localStorage.getItem("token")
-                    };
-                    SentAndPollData(STEP_1_SENT_MONEY, t);
-                }
+        my_scope.uploadPic = function (e) {
+            md5service.md5(e).progress(function (uploaded_file) {
+                my_log.log("Hashed " + uploaded_file.loaded + " B out of " + uploaded_file.total + " B")
+            }).error(function (e) {
+                my_log.log("Error calculating md5: %o", e)
+            }).success(function (s) {
+                my_log.log("MD5 for " + e.name + " is " + s),
+                    my_scope.sendHash(s)
             })
-    }
-    ,
-    my_scope.hasOwner = function () {
-        return blockchainService.address && blockchainService.seed;
-    },
+        },
 
 
+        //*********** Prepare the transaction, build the contract -to be sent to FuelServer for execution **************
+        my_scope.sendHash = function (my_hash) {
+            my_scope.asset = {
+                filehash: my_hash,
+                owner: blockchainService.address,
+                name: my_scope.upload_asset.name,
+                date: new Date,
+                message: my_scope.upload_asset.message
+            },
+                blockchainService.buildRegisterAssetTx("0x" + my_scope.asset.owner.toLowerCase(), my_scope.asset.name, my_scope.asset.filehash, my_scope.asset.date.getTime(), my_scope.asset.message, function (e, raw_transaction) {
+                    if (e)
+                        my_log.log("Failed to send transaction: " + e);
+                    else {
+                        var t = {
+                            tx: raw_transaction,
+                            token: localStorage.getItem("token")
+                        };
+                        SentAndPollData(STEP_1_SENT_MONEY, t);
+                    }
+                })
+        }
+        ,
+        my_scope.hasOwner = function () {
+            return blockchainService.address && blockchainService.seed;
+        },
 
-    my_scope.isEmpty = function (obj) {
-        for (var i in obj) if (obj.hasOwnProperty(i)) return false;
-        return true;
-    };
+
+        my_scope.isEmpty = function (obj) {
+            for (var i in obj) if (obj.hasOwnProperty(i)) return false;
+            return true;
+        };
 }
 
 angular.module("BlockChainDemo").controller("AssetsUploadController", ["$scope", "$timeout", "$http", "$window", "$log", "BlockChainService", "fileMd5Service", assetsUpload]);
@@ -594,7 +597,7 @@ function assetsVerifyController(scope, win, console, bc_service, md5_service) {
     my_scope.checkCat = function () {
 
         var contract_address = my_scope.asset.address; //smart contract address
-        var checksum='1b60e5d14e4827cf8275b451d05751e0';
+        var checksum = '1b60e5d14e4827cf8275b451d05751e0';
         bc_service.verifyOwner(checksum, function (res, verify_result) {
             if (res == null && verify_result.asset_found) {
                 console.log("Found asset with hash:" + checksum);
@@ -676,25 +679,17 @@ function EnterController(e, form) {
 angular.module("BlockChainDemo").controller("EnterController", ["$scope", "UserService", EnterController]);
 
 
-function WalletController(scope, window, bc_service) {
+function WalletController(scope,  window, bc_service) {
     var my_scope = scope;
 
     my_scope.upload_asset = {
         name: '',
         message: '',
-        upload_date:''
+        upload_date: ''
     };
 
-    my_scope.ownername='',
+    my_scope.ownername = '',
 
-    my_scope.deleteWallet = function () {
-        var isConfirmed = confirm("Are you sure to delete your wallet ?");
-        if (isConfirmed) {
-            bc_service.deleteWallet(function (e) {
-                my_scope.refresh(e);
-            })
-        }
-    },
 
 
         my_scope.checkWallet = function () {
@@ -724,22 +719,37 @@ function WalletController(scope, window, bc_service) {
         }
         ,
         my_scope.restoreWallet = function () {
-            bc_service.restoreWallet(function (e) {
-                my_scope.refresh(e)
+            bc_service.restoreWallet(function (err, owner_address) {
+                if (err == null) {
+                    bc_service.showOwnerDetails(owner_address, function (err, asset) {
+                        my_scope.upload_asset.name = asset.owner_name;
+                        my_scope.upload_asset.upload_date = asset.owner_create_date;
+                        my_scope.hashes = asset.hashes;
+                        my_scope.refresh(err);
+                    })
+                }
+
+                my_scope.refresh(err)
             })
         }
         ,
+
+
         my_scope.deleteWallet = function () {
-            bc_service.deleteWallet(function (e) {
-            })
-            my_scope.accountAddress = null;
-            my_scope.seed = null;
-            my_scope.hashes=[];
-            my_scope.upload_asset = {
-                    name: '',
-                    message: '',
-                    upload_date:''
-            };
+            var isConfirmed = confirm("Your WALLET will be DELETED and can ony be restored with your SEED.\nAre you sure?");
+            if (isConfirmed) {
+                bc_service.deleteWallet(function () {
+                    my_scope.accountAddress = null;
+                    my_scope.seed = null;
+                    my_scope.hashes = [];
+                    my_scope.upload_asset = {
+                            name: '',
+                            message: '',
+                            upload_date: ''
+                    };
+                    window.location.reload();
+                })
+            }
         }
         ,
         my_scope.printResult = function (text_id) {
@@ -760,12 +770,9 @@ function WalletController(scope, window, bc_service) {
     ;
 
 
-
-
-
 }
 
-angular.module("BlockChainDemo").controller("WalletController", ["$scope", "$window", "BlockChainService", WalletController]);
+angular.module("BlockChainDemo").controller("WalletController", ["$scope",  "$window", "BlockChainService", WalletController]);
 
 
 ////// Directives *********************************************************************
@@ -787,7 +794,6 @@ function compareTo() {
         }
     }
 }
-
 
 
 angular.module("BlockChainDemo").directive("compareTo", compareTo);

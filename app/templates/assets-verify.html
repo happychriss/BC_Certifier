@@ -4,8 +4,9 @@
             <form name="verifyForm" novalidate>
                 <div class="form-group">
 
-                    <h4>Find your file, a cat or other files on the Blockchain </h4>
+                    <h4>Check the Certifier of your files on the Blockchain </h4>
                     <p>The file itself will *never* be uploaded to the Blockchain.</p>
+                    <p>Try the file you have just uploaded.</p>
                     <input type="file" class="form-control" ngf-select ng-model="picFile" name="file" ngf-max-size="2MB"
                            required ngf-model-invalid="errorFile">
                     <img ng-show="verifyForm.file.$valid && picFile.type=='image/jpeg'" ngf-thumbnail="picFile"
@@ -24,7 +25,7 @@
 
 
                 <div class="form-group">
-                    <h4>Check the Cat :-)</h4>
+                    <h4>Check this cat on the Blockchain</h4>
 
                     <img class="img-responsive" width="318" height="314" sizes="(max-width: 1920px) 100vw, 1920px" src="/cat.jpg">
                     <button type="button" class="btn btn-default" ng-click="checkCat()">Find Cat</button>

@@ -74,13 +74,12 @@ function BlockChainService(my_ABI, address, host) {
                     res(err, null);
                 else {
                     var my_seed = prompt("Enter Seed/Secret Words to finally restore your wallet", "Seed");
-                    if (!my_seed)
-                        return;
-                    bs_service.initWallet(pwd, my_seed, pwDerivedKey, res)
+                    if (!my_seed) return;
+                    bs_service.initWallet(pwd, my_seed, pwDerivedKey, res);
+                    res(null, bs_service.address);
                 }
             })
-        }
-        ,
+        },
 
         this.initWallet = function (password, my_seed, pwDerivedKey, res) {
             bs_service.global_keystore = new lightwallet.keystore(my_seed, pwDerivedKey);
@@ -113,13 +112,12 @@ function BlockChainService(my_ABI, address, host) {
         ,
 
         this.deleteWallet = function (res) {
-            bs_service.global_keystore = null,
-                bs_service.address = null,
-                bs_service.seed = null,
-                bs_service.ownername = null,
-
+            bs_service.global_keystore = null;
+                bs_service.address = null;
+                bs_service.seed = null;
+                bs_service.ownername = null;
                 localStorage.clear();
-            res(null);
+                res();
         }
         ,
 
